@@ -116,7 +116,7 @@ str_detect(string_vec, "\\[")
 
 ## Factors
 
-```{r}
+```{r} 
 vec_sex = factor(c("male", "male", "female", "female"))
 vec_sex
 
@@ -145,18 +145,18 @@ need to tidy this!
 ```{r}
 marj_df =
   table_marj |> 
-  select(-contains("P Value")) |> 
+  select(-contains("P Value")) |> #contains() does a similar thing to str_detect()
   pivot_longer(
     -State,
     names_to = "age_year",
     values_to = "percent"
   ) |> 
-  separate(age_year, into = c("age", "year"), "\\(") |> 
+  separate(age_year, into = c("age", "year"), "\\(") |>  #separate(variable you want to separate, into = c("column you want to separate into", "other column you want to separate into"), "by what ever is here")
   mutate(
-    year = str_replace(year, "\\)", ""),
+    year = str_replace(year, "\\)", ""), #str_replace(the column you want to change, what you want to replace, what you want to replace it with)
     percent = str_replace(percent, "[a-b]", ""),
     percent = as.numeric(percent)) |> 
-  filter(!(State %in% c("Total U.S.", "Northeast", "Midwest", "South", "West")))
+  filter(!(State %in% c("Total U.S.", "Northeast", "Midwest", "South", "West"))) # filter is used here to say you do not want the state variable to be one of c("whatever", "is", "listed", "here")
 ```
 
 ```{r}

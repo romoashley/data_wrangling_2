@@ -212,10 +212,12 @@ marj_df =
   filter(!(State %in% c("Total U.S.", "Northeast", "Midwest", "South", "West"))) # filter is used here to say you do not want the state variable to be one of c("whatever", "is", "listed", "here")
 ```
 
+\#NSDUH – factors
+
 ``` r
 marj_df |> 
   filter(age == "18-25") |> 
-  mutate(State = fct_reorder(State, percent)) |> 
+  mutate(State = fct_reorder(State, percent)) |>  # put state in order according to percent -> fct_reorder(variable you want to reorder, variable you want to reorder by)
   ggplot(aes(x = State, y = percent, color = year)) +
   geom_point() + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
